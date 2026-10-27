@@ -1,7 +1,7 @@
 /* Dente di Leone — лендинг по макету Figma (1920) */
 @font-face {
   font-family: "Geologica";
-  src: url("assets/geologica.woff") format("woff");
+  src: url("assets/geologica.woff?v=2") format("woff");
   font-weight: 300 500;
   font-style: normal;
   font-display: swap;
