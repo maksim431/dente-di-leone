@@ -633,3 +633,57 @@ section[id] { scroll-margin-top: 80px; }
   .hero::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 140px; z-index: 1; background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, 0)); pointer-events: none; }
   .topbar.is-open { background: rgba(0, 0, 0, .5); -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px); }
 }
+
+/* =========================================================
+   Анимации
+   ========================================================= */
+/* Появление при прокрутке */
+.motion .rv {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity .8s cubic-bezier(.22, .61, .36, 1), transform .8s cubic-bezier(.22, .61, .36, 1);
+  transition-delay: var(--rv-delay, 0ms);
+  will-change: opacity, transform;
+}
+.motion .rv.is-in { opacity: 1; transform: none; will-change: auto; }
+.motion .rv--zoom { overflow: hidden; transform: none; }
+.motion .rv--zoom > img { transform: scale(1.06); transition: transform 1.4s cubic-bezier(.22, .61, .36, 1); transition-delay: var(--rv-delay, 0ms); }
+.motion .rv--zoom.is-in > img { transform: none; }
+
+/* Первый экран при загрузке */
+.motion .hero__bg.is-active img { animation: heroZoom 1.8s cubic-bezier(.22, .61, .36, 1) both; }
+.motion .hcard { animation: heroUp .9s .25s cubic-bezier(.22, .61, .36, 1) both; }
+.motion .topbar { animation: heroFade .8s .1s ease both; }
+@keyframes heroZoom { from { transform: scale(1.06); } to { transform: none; } }
+@keyframes heroUp { from { opacity: 0; transform: translate3d(0, 24px, 0); } to { opacity: 1; transform: none; } }
+@keyframes heroFade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Ховеры */
+.btn { transition: background-color .2s, color .2s, border-color .2s, transform .2s cubic-bezier(.22, .61, .36, 1), box-shadow .2s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -10px rgba(28, 165, 237, .7); }
+.btn--soft:hover, .btn--ghost:hover, .btn--outline:hover { box-shadow: none; }
+.btn:active { transform: translateY(0); transition-duration: .05s; }
+.price, .doc, .case, .fear, .rev, .sit__row, .qa { transition: transform .35s cubic-bezier(.22, .61, .36, 1), box-shadow .35s, background-color .2s; }
+.price:hover, .fears__grid .fear:hover, .rev:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -24px rgba(0, 0, 0, .25); }
+.doc__photo, .case__img { overflow: hidden; }
+.doc__photo img, .case__img img { transition: transform .6s cubic-bezier(.22, .61, .36, 1); }
+.doc:hover .doc__photo img, .case:hover .case__img img { transform: scale(1.04); }
+.sit__row:hover .chip { background: rgba(28, 165, 237, .09); color: var(--blue); }
+.chip { transition: background-color .2s, color .2s; }
+.qa:hover { box-shadow: 0 10px 30px -22px rgba(0, 0, 0, .3); }
+.qa[open] .qa__icon::after { transform: rotate(0deg); }
+.qa[open] .qa__icon { background: rgba(28, 165, 237, .09); }
+.qa p { animation: qaOpen .35s ease; }
+@keyframes qaOpen { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.car__btn { transition: opacity .2s, background-color .2s, transform .2s; }
+.car__btn:not(:disabled):hover { transform: scale(1.06); }
+.map img { transition: transform .8s cubic-bezier(.22, .61, .36, 1); }
+.map:hover img { transform: scale(1.03); }
+.footer__col a, .nav a { position: relative; }
+
+@media (hover: none) {
+  .btn:hover, .price:hover, .fears__grid .fear:hover, .rev:hover { transform: none; box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
