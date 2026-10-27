@@ -1,29 +1,92 @@
 (function () {
   'use strict';
 
-  /* ---------- Мобильное меню ---------- */
+  /* ---------- Шапка: фиксированная, меняется после начала скролла ---------- */
+  var bar = document.getElementById('topbar');
   var top = document.querySelector('.hero__top');
   var burger = document.querySelector('.burger');
+  if (bar) {
+    var onScroll = function () { bar.classList.toggle('is-scrolled', window.scrollY > 0); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var setMenu = function (open) {
+    top.classList.toggle('is-open', open);
+    if (bar) bar.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
   if (burger && top) {
-    burger.addEventListener('click', function () {
-      var open = top.classList.toggle('is-open');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
+    burger.addEventListener('click', function () { setMenu(!top.classList.contains('is-open')); });
     top.querySelectorAll('.nav a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        top.classList.remove('is-open');
-        burger.setAttribute('aria-expanded', 'false');
-      });
+      a.addEventListener('click', function () { setMenu(false); });
     });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
   }
 
-  /* ---------- Карточка врача в первом экране: стрелки ведут к команде ---------- */
-  document.querySelectorAll('.hcard__arrow').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var t = document.getElementById('team');
-      if (t) t.scrollIntoView({ behavior: 'smooth' });
+  /* ---------- Слайдер первого экрана: специалисты, автопереключение каждые 5 с ---------- */
+  var hero = document.querySelector('[data-hero]');
+  if (hero) {
+    var DELAY = 5000;
+    var slides = [
+      { name: 'Горбачев Алексей Владимирович', role: 'Директор, стоматолог, ортопед, хирург и имплантолог.<br>Стаж работы 18 лет' },
+      { name: 'Смирнова Елизавета Игоревна', role: 'Стоматолог - терапевт. <br>Стаж работы 1 год' }
+    ];
+    var bgs = hero.querySelectorAll('.hero__bg');
+    var imgs = hero.querySelectorAll('.hcard__img');
+    var info = hero.querySelector('.hcard__info');
+    var nameEl = hero.querySelector('.hcard__name');
+    var roleEl = hero.querySelector('.hcard__role');
+    var dotsWrap = hero.querySelector('.hcard__dots');
+    var cur = 0;
+    var dots = slides.map(function (s, i) {
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'hcard__dot';
+      d.setAttribute('role', 'tab');
+      d.setAttribute('aria-label', s.name);
+      d.appendChild(document.createElement('i'));
+      d.addEventListener('click', function () { if (i !== cur) go(i); });
+      dotsWrap.appendChild(d);
+      return d;
     });
-  });
+    hero.style.setProperty('--hero-delay', DELAY + 'ms');
+
+    var mark = function () {
+      dots.forEach(function (d, i) {
+        var on = i === cur;
+        d.classList.remove('is-active');
+        d.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      void dotsWrap.offsetWidth; // перезапуск анимации таймера
+      dots[cur].classList.add('is-active');
+    };
+    var go = function (n) {
+      cur = (n + slides.length) % slides.length;
+      bgs.forEach(function (b, i) { b.classList.toggle('is-active', i === cur); });
+      imgs.forEach(function (im, i) { im.classList.toggle('is-active', i === cur); });
+      info.classList.add('is-fading');
+      setTimeout(function () {
+        nameEl.textContent = slides[cur].name;
+        roleEl.innerHTML = slides[cur].role;
+        info.classList.remove('is-fading');
+      }, 300);
+      mark();
+    };
+    // таймер-индикатор сам переключает слайд, когда заполнится
+    dotsWrap.addEventListener('animationend', function (e) {
+      if (e.animationName === 'heroTimer') go(cur + 1);
+    });
+    hero.querySelector('.hcard__arrow--prev').addEventListener('click', function () { go(cur - 1); });
+    hero.querySelector('.hcard__arrow--next').addEventListener('click', function () { go(cur + 1); });
+    // пауза, пока первый экран не виден
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) {
+        hero.classList.toggle('is-paused', !en[0].isIntersecting);
+      }).observe(hero);
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) hero.classList.add('is-paused');
+    mark();
+  }
 
   /* ---------- Карусель врачей ---------- */
   var car = document.querySelector('[data-carousel]');

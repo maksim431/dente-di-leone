@@ -12,8 +12,7 @@
 <body>
 
 <!-- 01 Hero -->
-<header class="hero" id="top">
-  <div class="hero__bg"><img src="assets/hero-bg.jpg" alt="" width="1920" height="515"></div>
+<header class="topbar" id="topbar">
   <div class="wrap hero__top">
     <a class="logo" href="#top" aria-label="dente di leone, на главную">
       <img src="assets/logo.svg" alt="" width="32" height="40">
@@ -31,23 +30,32 @@
       <a class="nav__phone" href="tel:+79999999999">+7 (999) 999 99 99</a>
     </nav>
   </div>
+</header>
+
+<!-- 01 Hero: слайдер специалистов -->
+<section class="hero" id="top" data-hero aria-roledescription="карусель" aria-label="Специалисты клиники">
+  <div class="hero__slides">
+    <div class="hero__bg is-active"><img src="assets/hero-bg.jpg" alt="" width="1920" height="515" fetchpriority="high"></div>
+    <div class="hero__bg"><img src="assets/hero-bg2.jpg" alt="" width="1920" height="515"></div>
+  </div>
   <div class="wrap hero__cardwrap">
-    <div class="hcard" data-slider>
+    <div class="hcard">
       <div class="hcard__text">
-        <div class="hcard__info">
+        <div class="hcard__info" aria-live="polite">
           <p class="hcard__name">Горбачев Алексей Владимирович</p>
           <p class="hcard__role">Директор, стоматолог, ортопед, хирург и имплантолог.<br>Стаж работы 18 лет</p>
         </div>
-        <div class="hcard__dots"><i class="is-active"></i><i></i><i></i><i></i><i></i></div>
+        <div class="hcard__dots" role="tablist" aria-label="Выбор специалиста"></div>
       </div>
       <div class="hcard__photo">
-        <img src="assets/hero-doctor.png" alt="Алексей Горбачев" width="265" height="253">
-        <button class="hcard__arrow hcard__arrow--prev" type="button" aria-label="Все врачи клиники"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button class="hcard__arrow hcard__arrow--next" type="button" aria-label="Все врачи клиники"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <img class="hcard__img hcard__img--1 is-active" src="assets/hero-doctor.webp" alt="Алексей Горбачев" width="279" height="374">
+        <img class="hcard__img hcard__img--2" src="assets/hero-doctor2.webp" alt="Елизавета Смирнова" width="343" height="460">
+        <button class="hcard__arrow hcard__arrow--prev" type="button" aria-label="Предыдущий специалист"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="hcard__arrow hcard__arrow--next" type="button" aria-label="Следующий специалист"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
     </div>
   </div>
-</header>
+</section>
 
 <section class="intro">
   <div class="wrap intro__wrap">
