@@ -13,7 +13,7 @@
   --black: #001825;
   --gray: #808080;
   --gray-l: #a8a8a8;
-  --bg: #f3f3f3;
+  --bg: #eef1f3;
   --line: #e3e3e3;
   --pad: 200px;
   --wrap: 1520px;
@@ -441,7 +441,7 @@ section[id] { scroll-margin-top: 80px; }
 .qa__icon { position: relative; flex: none; width: 44px; height: 44px; border-radius: 100px; background: var(--bg); transition: background-color .2s; }
 .qa__icon::before, .qa__icon::after { content: ""; position: absolute; left: 50%; top: 50%; width: 11.67px; height: 1.25px; margin: -0.625px 0 0 -5.835px; border-radius: 1px; background: var(--black); transition: transform .25s; }
 .qa__icon::after { transform: rotate(90deg); }
-.qa summary:hover .qa__icon { background: #e8e8e8; }
+.qa summary:hover .qa__icon { background: #e2e6e9; }
 .qa p { margin-top: 16px; font-size: 18px; font-weight: 300; line-height: 1.4; color: var(--gray); }
 
 /* ---------- 12 Контакты ---------- */
@@ -748,6 +748,7 @@ section[id] { scroll-margin-top: 80px; }
    Мобильный макет (390w) — правки из Figma «390w default»
    ========================================================= */
 .pic { display: contents; }
+.pic source { display: none; }
 .m-br { display: none; }
 @media (max-width: 640px) {
   br.m-br, .h2 br.m-br, .h2 br.k-br, .est__title br.m-br { display: inline; }
@@ -862,4 +863,63 @@ section[id] { scroll-margin-top: 80px; }
   .addr { padding: 28px 20px; gap: 36px; }
   .addr__info > div { gap: 5.6px; }
   .map { aspect-ratio: 358 / 259; }
+}
+
+/* =========================================================
+   Скругления и плотная сетка (правки макета, октябрь 2026)
+   ========================================================= */
+.pcard { border-radius: 48px; }
+.pcard--dark::before { border-radius: 24px; }
+.price { border-radius: 24px; overflow: hidden; }
+.prices { margin-top: 48px; }
+.mini { border-radius: 32px; }
+.steps li { border-radius: 24px; }
+.impl__cta { border-radius: 32px; }
+.dir__photo { border-radius: 32px; }
+.dir__quote { border-radius: 24px; }
+.doc { border-radius: 32px; overflow: hidden; }
+.cases { grid-template-columns: minmax(0, 598fr) minmax(0, 445fr) minmax(0, 445fr); margin-bottom: 48px; }
+.case__ba { border-radius: 32px; overflow: hidden; isolation: isolate; }
+.rating, .rev { border-radius: 32px; }
+.fear--big { border-radius: 48px; }
+.fear--big::before { border-radius: 24px; }
+.fears__grid .fear { border-radius: 24px; }
+.promo { border-radius: 32px; }
+.qa { border-radius: 24px; }
+.addr, .map { border-radius: 48px; }
+.map { isolation: isolate; }
+.footer { border-radius: 48px 48px 0 0; }
+@media (max-width: 1200px) {
+  .cases { grid-template-columns: 1fr 1fr; }
+  .cases > .case:first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 900px) {
+  .cases { grid-template-columns: 1fr; }
+  /* на мобильном порядок кейсов как в мобильном макете: брекеты, имплант, коронки */
+  .cases > .case:nth-child(1) { order: 1; }
+  .cases > .case:nth-child(3) { order: 2; }
+}
+@media (max-width: 640px) {
+  .hero { height: clamp(242px, calc(100vh - 394px), 438px); height: clamp(242px, calc(100svh - 394px), 438px); }
+  .hcard { border-radius: 20px; overflow: hidden; }
+  .pcard { border-radius: 28px; }
+  .pcard--dark::before { border-radius: 18px; }
+  .price { border-radius: 18px; }
+  .mini { border-radius: 28px; }
+  .steps li { border-radius: 18px; }
+  .impl__cta { border-radius: 28px; }
+  .dir__photo { border-radius: 28px; }
+  .dir__quote { border-radius: 18px; }
+  .doc { border-radius: 28px; }
+  .case { gap: 16px; }
+  .cases { margin-bottom: 48px; }
+  .case__ba { border-radius: 28px; }
+  .rating, .rev { border-radius: 28px; }
+  .fear--big { border-radius: 28px; }
+  .fear--big::before { border-radius: 0; }
+  .fears__grid .fear { border-radius: 28px; }
+  .promo { border-radius: 28px; }
+  .qa { border-radius: 18px; }
+  .addr, .map { border-radius: 28px; }
+  .footer { border-radius: 32px 32px 0 0; }
 }
