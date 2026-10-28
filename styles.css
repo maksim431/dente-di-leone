@@ -259,7 +259,9 @@ section[id] { scroll-margin-top: 80px; }
 
 /* ---------- 04 Имплантация ---------- */
 .sec--impl { position: relative; background: #414141; }
-.impl__bg { position: sticky; top: 0; z-index: 0; height: min(1060px, 100vh); margin: -140px 0 calc(140px - min(1060px, 100vh)); overflow: hidden; pointer-events: none; }
+/* Фото закреплено, пока прокручивается секция, и уходит вместе с её низом */
+.impl__track { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.impl__bg { position: sticky; top: 0; height: min(1060px, 100vh); overflow: hidden; }
 .impl__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
 .impl__wrap { position: relative; z-index: 1; }
 .impl__col { display: flex; flex-direction: column; gap: 64px; width: 598px; max-width: 100%; margin-left: auto; }
