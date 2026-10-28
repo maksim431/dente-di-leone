@@ -743,3 +743,123 @@ section[id] { scroll-margin-top: 80px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* =========================================================
+   Мобильный макет (390w) — правки из Figma «390w default»
+   ========================================================= */
+.pic { display: contents; }
+.m-br { display: none; }
+@media (max-width: 640px) {
+  br.m-br, .h2 br.m-br, .h2 br.k-br, .est__title br.m-br { display: inline; }
+  .sec { padding: 100px 0; }
+  .sec__head { gap: 20px; margin-bottom: 48px; }
+  .sec__desc, .impl__lead .sec__desc { max-width: none; font-size: 16px; font-weight: 300; line-height: 1.275; }
+
+  /* Первый экран */
+  /* 418px по макету; на низких экранах шапка ужимается, чтобы кнопки были видны сразу */
+  .hero { height: clamp(242px, calc(100vh - 394px), 418px); height: clamp(242px, calc(100svh - 394px), 418px); display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero__bg img { object-position: 22% 50%; }
+
+  /* Цены */
+  #prices .sec__head { margin-bottom: 40px; }
+  .pcard { padding: 28px 20px; }
+  .pcard--dark { height: 832px; min-height: 0; justify-content: flex-start; }
+  .pcard--dark::before { left: 10px; top: 10px; bottom: auto; width: 338px; max-width: calc(100% - 20px); height: 584px; }
+  .pcard__top { gap: 40px; }
+  .pcard__big { font-size: 48px; }
+  .pcard__sub { font-size: 18px; }
+  .pcard__cta { margin-top: 60px; align-items: stretch; }
+  .pcard__cta .btn { font-size: 16px; padding: 14.5px 20px; }
+  .est__title { font-size: 26px; }
+  .est__desc { font-size: 16px; line-height: 1.2; }
+  .est__row { font-size: 16px; }
+  .est__total span { font-size: 24px; }
+  .est__total b { font-size: 32px; }
+  .est__notes { margin-top: 40px; gap: 11px; }
+  .est__notes li { align-items: flex-start; font-size: 16px; line-height: 1.35; }
+  .prices { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 40px; }
+  .price { height: 180px; padding: 20px; }
+  .price__name { font-size: 16px; }
+  .price__val { font-size: 22px; }
+  .price--all { grid-column: 1 / -1; height: 150px; }
+  .price--all .price__link { align-self: flex-end; font-size: 14px; letter-spacing: .8px; }
+
+  /* С чем к нам приходят */
+  .sit { gap: 48px; }
+  .sit__row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0; padding: 28px 0; }
+  .sit__num { grid-column: 1; grid-row: 1; width: auto; font-size: 20px; line-height: 1; }
+  .sit__row .chip { grid-column: 2; grid-row: 1; margin: 0; padding: 9.5px 20px; background: none; }
+  .sit__title { grid-column: 1 / -1; grid-row: 2; width: auto; margin-top: 40px; font-size: 22px; line-height: 1.1; }
+  .sit__desc { grid-column: 1 / -1; grid-row: 3; padding: 0; margin-top: 13px; font-size: 16px; line-height: 1.3; }
+  .mini { padding: 32px 20px; gap: 110px; }
+  .mini__title { font-size: 26px; }
+  .mini__desc { font-size: 18px; }
+
+  /* Имплантация: фото сверху, контент наезжает на его низ */
+  .sec--impl { padding: 566px 0 16px; background: #040d11; }
+  .impl__track { bottom: auto; height: 844px; }
+  .impl__bg { position: static; height: 844px; }
+  .impl__bg img { object-position: 50% 0; }
+  .impl__wrap { gap: 20px; }
+  .impl__lead .sec__desc { font-size: 17px; font-weight: 400; line-height: 1.2; }
+  .steps li { min-height: 152.78px; padding: 24px 16px 20px; gap: 10px; }
+  .impl__cta { padding: 28px 20px; gap: 110px; }
+  .impl__title { font-size: 28px; }
+
+  /* Директор */
+  .dir__facts span { font-size: 16px; font-weight: 300; }
+  .dir__num { font-size: 40px; }
+  .dir__nums { gap: 40px; }
+  .dir__quote { padding: 23px 20px 24px; }
+  .dir__btn { align-self: stretch; }
+
+  /* Врачи */
+  .doc__body { height: 274px; gap: 24px; padding: 20px 20px 24px; }
+  .car__nav { margin-top: 32px; }
+
+  /* Работы и отзывы */
+  .cases { gap: 40px; margin-bottom: 64px; }
+  .case__title { font-size: 20px; }
+  .rating { padding: 28px 20px; min-height: 299px; }
+  .rev { padding: 28px 20px; gap: 32px; }
+  .rev p { font-size: 16px; line-height: 1.52; }
+
+  /* Чего боятся */
+  .fear--big { min-height: 320px; height: 490px; justify-content: flex-end; gap: 56px; padding: 28px 20px; }
+  .fear--big::before { left: 10px; top: auto; bottom: 10px; width: 338px; max-width: calc(100% - 20px); height: 263px; }
+  .fear--big .fear__lbl { color: #fff; }
+  .fear--big .fear__title { font-size: 32px; }
+  .fear--big .fear__desc { font-size: 16px; line-height: 1.35; }
+  .fear { padding: 28px 20px; gap: 56px; }
+  .fear__title { font-size: 24px; }
+  .fear__desc, .fear--big .fear__desc { font-size: 16px; }
+  .fears__grid .fear__desc { line-height: 1.3; }
+
+  /* Форма: стекло сверху, фото видно снизу */
+  .formsec { min-height: 982px; align-items: flex-start; }
+  .formsec__bg { object-position: 50% 50%; }
+  .formsec__body { padding: 64px 16px; gap: 32px; }
+  .lead { gap: 12px; }
+  .lead__input { font-size: 18px; padding: 15.5px 24px; }
+  .formsec__msg .btn { font-size: 18px; }
+
+  /* Детям */
+  .kids { gap: 48px; }
+  .kids__group { gap: 23px; }
+  .kids__desc { font-size: 16px; font-weight: 300; line-height: 1.3; }
+  .promo { padding: 28px 20px; gap: 32px; }
+  .promo__price { font-size: 56px; }
+  .promo__desc { font-size: 18px; }
+
+  /* Вопросы */
+  .faq { gap: 48px; }
+  .faq__head { gap: 31.5px; }
+  .faq__desc { font-size: 16px; font-weight: 300; line-height: 1.3; }
+  .faq__btn { align-self: stretch; }
+
+  /* Контакты */
+  .contacts { gap: 16px; }
+  .addr { padding: 28px 20px; gap: 36px; }
+  .addr__info > div { gap: 5.6px; }
+  .map { aspect-ratio: 358 / 259; }
+}
