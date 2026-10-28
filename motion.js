@@ -151,7 +151,7 @@
 
   // Счётчики цифр: 18 лет, 2014, 4,9, цены 95 500 ₽
   var countUp = function (el) {
-    var txt = el.textContent, m = txt.match(/\d[\d\s ]*(?:,\d+)?/);
+    var txt = el.textContent, m = txt.match(/\d(?:[\d\s ]*\d)?(?:,\d+)?/);
     if (!m) return;
     var raw = m[0], isDec = raw.indexOf(',') > -1;
     var end = parseFloat(raw.replace(/[\s ]/g, '').replace(',', '.'));
