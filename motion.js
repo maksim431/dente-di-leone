@@ -5,22 +5,34 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var HEADER = function () { var b = document.getElementById('topbar'); return b ? b.offsetHeight : 0; };
 
-  /* ---------- 1. Инерционный скролл колесом мыши ---------- */
+  /* ---------- 1. Инерционный скролл колесом мыши ----------
+     Одна позиция-цель и затухание, зависящее от времени кадра (а не от FPS).
+     При смене направления инерция сбрасывается, поэтому разворот без рывка.
+     Жест тачпада целиком остаётся родным: режимы не смешиваются внутри жеста. */
   var finePointer = window.matchMedia('(pointer: fine)').matches;
   var target = window.scrollY, current = window.scrollY, raf = null, anim = null;
-  var maxScroll = function () { return root.scrollHeight - window.innerHeight; };
+  var lastT = 0, lastSet = -1, nativeUntil = 0;
+  var DAMP = 9; // чем больше, тем короче «хвост»
+  var maxScroll = function () { return Math.max(0, root.scrollHeight - window.innerHeight); };
   var clamp = function (v) { return Math.max(0, Math.min(maxScroll(), v)); };
 
-  var loop = function () {
-    current += (target - current) * 0.12;
-    if (Math.abs(target - current) < 0.5) current = target;
+  var stopSmooth = function () { if (raf) cancelAnimationFrame(raf); raf = null; };
+  var loop = function (now) {
+    // кто-то прокрутил страницу сам (полоса прокрутки, клавиатура, поиск) — уступаем
+    if (lastSet >= 0 && Math.abs(window.scrollY - lastSet) > 3) { stopSmooth(); current = target = window.scrollY; return; }
+    var dt = Math.min(0.05, Math.max(0.001, (now - lastT) / 1000));
+    lastT = now;
+    current += (target - current) * (1 - Math.exp(-DAMP * dt));
+    if (Math.abs(target - current) < 0.4) current = target;
     window.scrollTo(0, current);
+    lastSet = window.scrollY;
     raf = current === target ? null : requestAnimationFrame(loop);
+    if (!raf) lastSet = -1;
   };
 
   // Плавная прокрутка к точке (для якорей): easeInOutCubic
   var scrollToY = function (y, dur) {
-    if (raf) { cancelAnimationFrame(raf); raf = null; }
+    stopSmooth(); lastSet = -1;
     if (anim) cancelAnimationFrame(anim);
     var from = window.scrollY, to = clamp(y), t0 = performance.now();
     dur = dur || Math.min(1400, 500 + Math.abs(to - from) * 0.25);
@@ -29,10 +41,11 @@
       var p = Math.min(1, (now - t0) / dur);
       var e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
       window.scrollTo(0, from + (to - from) * e);
-      if (p < 1) anim = requestAnimationFrame(step); else { anim = null; target = current = to; }
+      if (p < 1) anim = requestAnimationFrame(step); else { anim = null; target = current = window.scrollY; }
     };
     anim = requestAnimationFrame(step);
   };
+  var cancelAnim = function () { if (anim) { cancelAnimationFrame(anim); anim = null; target = current = window.scrollY; } };
 
   if (finePointer && !reduce) {
     root.style.scrollBehavior = 'auto';
@@ -46,20 +59,23 @@
           if (oy === 'auto' || oy === 'scroll') return;
         }
       }
-      // тачпады шлют мелкие частые дельты, их не трогаем
-      var lineMode = e.deltaMode === 1;
-      var dy = lineMode ? e.deltaY * 40 : e.deltaY;
-      if (!lineMode && Math.abs(dy) < 40) return;
+      var now = performance.now();
+      var dy = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaMode === 2 ? e.deltaY * window.innerHeight : e.deltaY;
+      // Тачпад: мелкие пиксельные дельты. Пока идёт его жест — всё родное.
+      var touchpadLike = e.deltaMode === 0 && Math.abs(dy) < 50;
+      if (!raf && (touchpadLike || now < nativeUntil)) { cancelAnim(); nativeUntil = now + 180; return; }
       e.preventDefault();
-      if (anim) { cancelAnimationFrame(anim); anim = null; current = window.scrollY; target = current; }
-      if (!raf) { current = window.scrollY; target = current; }
+      cancelAnim();
+      if (!raf) { current = target = window.scrollY; lastT = now; }
+      // разворот: гасим накопленную инерцию в старом направлении
+      if ((target - current) * dy < 0) target = current;
       target = clamp(target + dy);
-      if (!raf) raf = requestAnimationFrame(loop);
+      if (!raf && target !== current) { lastSet = -1; raf = requestAnimationFrame(function (t) { lastT = t - 16; loop(t); }); }
     }, { passive: false });
-    // клавиатура, полоса прокрутки и т.п. — синхронизируем позицию
     window.addEventListener('scroll', function () {
       if (!raf && !anim) { current = target = window.scrollY; }
     }, { passive: true });
+    window.addEventListener('resize', function () { target = clamp(target); });
   }
 
   // Якорные ссылки — плавно, с учётом высоты шапки
@@ -91,7 +107,7 @@
     ['.sit__row', 50],
     ['.mini', 0],
     ['.steps li', 80],
-    ['.impl > *', 110],
+    ['.impl__cta', 0],
     ['.dir__photo', 0],
     ['.dir__text > *', 70],
     ['.doc', 70],
@@ -100,7 +116,7 @@
     ['.revs > *', 90],
     ['.fear--big, .fears__grid > *', 70],
     ['.formsec__body > *', 80],
-    ['.kids__text > *, .promo', 90],
+    ['.kids__group > *, .kids__btn, .promo', 90],
     ['.faq__head > *', 80],
     ['.qa', 40],
     ['.addr, .map', 110],
@@ -114,12 +130,11 @@
       var p = el.parentElement, i = parents.get(p) || 0;
       parents.set(p, i + 1);
       el.classList.add('rv');
-      if (el.matches('.dir__photo, .impl__photo, .map, .formsec__photo')) el.classList.add('rv--zoom');
+      if (el.matches('.dir__photo, .map')) el.classList.add('rv--zoom');
       el.style.setProperty('--rv-delay', Math.min(i * g[1], 600) + 'ms');
       all.push(el);
     });
   });
-  document.querySelectorAll('.formsec__photo').forEach(function (el) { el.classList.add('rv', 'rv--zoom'); all.push(el); });
 
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {

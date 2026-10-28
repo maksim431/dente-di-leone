@@ -7,7 +7,7 @@
 <meta name="description" content="Стоматология Алексея Горбачева в Нижнем Новгороде. КТ в клинике, письменная смета до начала лечения, имплант и коронка у одного врача.">
 <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
 <link rel="preload" href="assets/geologica.woff?v=2" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 <script>
   (function (d) {
     if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -45,6 +45,7 @@
     <div class="hero__bg is-active"><img src="assets/hero-bg.jpg?v=2" alt="" width="1920" height="515" fetchpriority="high"></div>
     <div class="hero__bg"><img src="assets/hero-bg2.jpg?v=2" alt="" width="1920" height="515"></div>
   </div>
+  <div class="hero__tint" aria-hidden="true"></div>
   <div class="wrap hero__cardwrap">
     <div class="hcard">
       <div class="hcard__text">
@@ -78,10 +79,10 @@
       </div>
     </div>
     <ul class="intro__facts">
-      <li><i class="mark"></i><span>Работаем на Родионова, 197 с 2014 года</span></li>
-      <li><i class="mark"></i><span class="intro__hours"><span>Пн–пт с 8:00 до 20:00</span><span>Сб с 9:00 до 18:00</span></span></li>
-      <li><i class="mark"></i><span>Рейтинг 4.9 на Яндекс Картах и 200+ отзывов</span></li>
-      <li><i class="mark"></i><span>КТ и панорамный снимок в клинике</span></li>
+      <li><i class="mark"></i><span>Работаем на Родионова, 197 <br>с 2014 года</span></li>
+      <li><i class="mark"></i><span class="intro__hours"><span>Пн–пт с 8:00 до 20:00</span><span class="is-light">Сб с 9:00 до 18:00</span></span></li>
+      <li><i class="mark"></i><span>Рейтинг 4.9 на Яндекс Картах <br>и 200+ отзывов</span></li>
+      <li><i class="mark"></i><span>КТ и панорамный снимок <br>в клинике</span></li>
     </ul>
   </div>
 </section>
@@ -91,11 +92,12 @@
   <div class="wrap">
     <div class="sec__head">
       <h2 class="h2">Цены на основные услуги. <br>Точную сумму назовём после КТ</h2>
-      <p class="sec__desc">Цена импланта зависит от системы и от того, хватает ли кости. Это видно только на снимке, поэтому по телефону мы называем диапазон.</p>
+      <p class="sec__desc sec__desc--18">Цена импланта зависит от системы и от того, хватает ли кости. Это видно только на снимке, поэтому по телефону мы называем диапазон.</p>
     </div>
 
     <div class="bento">
       <div class="pcard pcard--dark">
+        <img class="pcard__bg" src="assets/price-card.jpg?v=4" alt="" width="906" height="735" loading="lazy">
         <div class="pcard__top">
           <p class="overline"><i class="mark mark--blue"></i>Имплантация</p>
           <div class="pcard__main">
@@ -167,31 +169,31 @@
           <p class="mini__desc">Опишите, что беспокоит. Подскажем, к какому врачу идти и сколько примерно это будет стоить.</p>
         </div>
         <div class="mini__btns">
-          <a class="btn btn--block" href="https://t.me/" target="_blank" rel="noopener">Написать в Telegram</a>
+          <a class="btn btn--block" href="https://max.ru/" target="_blank" rel="noopener">Написать в MAX</a>
           <a class="btn btn--block btn--ghost" href="tel:+79999999999">+7 (999) 999 99 99</a>
+          <p class="mini__note">Пн–пт с 8:00 до 20:00, сб с 9:00 до 18:00</p>
         </div>
-        <p class="mini__note">Пн–пт с 8:00 до 20:00, сб с 9:00 до 18:00</p>
       </aside>
     </div>
   </div>
 </section>
 
 <!-- 04 Имплантация -->
-<section class="sec sec--dark" id="implant">
-  <div class="wrap">
+<section class="sec sec--dark sec--impl" id="implant">
+  <div class="impl__bg" aria-hidden="true"><img src="assets/implant-bg.jpg?v=4" alt="" width="1920" height="1060" loading="lazy"></div>
+  <div class="wrap impl__wrap">
     <div class="sec__head">
       <h2 class="h2">Имплант и коронку <br>вам поставит один врач</h2>
-      <p class="sec__desc">Алексей Горбачев сам и устанавливает импланты, и делает коронки. Он планирует лечение сразу под будущую коронку, и вам не приходится ходить между хирургом и ортопедом.</p>
+      <p class="sec__desc sec__desc--wide">Алексей Горбачев сам и устанавливает импланты, и делает коронки. Он планирует лечение сразу под будущую коронку, и вам не приходится ходить между хирургом и ортопедом.</p>
     </div>
-    <ol class="steps">
-      <li><span class="steps__num">01</span><h3 class="steps__title">Консультация и КТ</h3><p class="steps__desc">КТ делаем в клинике, никуда ехать не нужно.</p></li>
-      <li><span class="steps__num">02</span><h3 class="steps__title">План и смета</h3><p class="steps__desc">Получаете на руки и решаете дома, без давления.</p></li>
-      <li><span class="steps__num">03</span><h3 class="steps__title">Установка импланта</h3><p class="steps__desc">Если не хватает кости, делаем костную пластику или синус-лифтинг здесь же.</p></li>
-      <li><span class="steps__num">04</span><h3 class="steps__title">Приживление</h3><p class="steps__desc">Обычно несколько месяцев. Точный срок врач назовёт после КТ.</p></li>
-      <li><span class="steps__num">05</span><h3 class="steps__title">Коронка на имплант</h3><p class="steps__desc">Её делает тот же врач, который ставил имплант.</p></li>
-    </ol>
-    <div class="impl">
-      <div class="impl__photo"><img src="assets/implant.jpg?v=2" alt="Хирург устанавливает имплант" width="944" height="520" loading="lazy"></div>
+    <div class="impl__col">
+      <ol class="steps">
+        <li><span class="steps__num">01</span><h3 class="steps__title">Консультация и КТ</h3><p class="steps__desc">КТ делаем в клинике, никуда ехать не нужно.</p></li>
+        <li><span class="steps__num">02</span><h3 class="steps__title">План и смета</h3><p class="steps__desc">Получаете на руки и решаете дома, без давления.</p></li>
+        <li><span class="steps__num">03</span><h3 class="steps__title">Установка импланта</h3><p class="steps__desc">Если не хватает кости, делаем костную пластику или синус-лифтинг здесь же.</p></li>
+        <li><span class="steps__num">04</span><h3 class="steps__title">Приживление</h3><p class="steps__desc">Обычно несколько месяцев. Точный срок врач назовёт после КТ.</p></li>
+        <li><span class="steps__num">05</span><h3 class="steps__title">Коронка на имплант</h3><p class="steps__desc">Её делает тот же врач, который ставил имплант.</p></li>
+      </ol>
       <div class="impl__cta">
         <div class="impl__text">
           <p class="overline overline--light"><i class="mark mark--white"></i>Первый шаг</p>
@@ -253,7 +255,7 @@
     <div class="car__nav">
       <div class="car__count"><span class="car__cur">01</span><i></i><span class="car__total">06</span></div>
       <div class="car__arrows">
-        <button class="car__btn car__btn--prev" type="button" aria-label="Назад"><img src="assets/arrow-left.svg?v=2" alt="" width="24" height="24"></button>
+        <button class="car__btn car__btn--prev" type="button" aria-label="Назад"><img src="assets/arrow-left.svg?v=4" alt="" width="24" height="24"></button>
         <button class="car__btn car__btn--next" type="button" aria-label="Вперёд"><img src="assets/arrow-right.svg?v=2" alt="" width="24" height="24"></button>
       </div>
     </div>
@@ -313,10 +315,11 @@
   <div class="wrap">
     <div class="sec__head">
       <h2 class="h2">Чего боятся перед лечением <br>и как это устроено у нас</h2>
-      <p class="sec__desc">Собрали частые опасения пациентов. Если вашего нет в списке, спросите на консультации.</p>
+      <p class="sec__desc sec__desc--520">Собрали частые опасения пациентов. Если вашего нет в списке, спросите на консультации.</p>
     </div>
     <div class="fears">
       <div class="fear fear--big">
+        <img class="fear__bg" src="assets/fear-card.jpg?v=4" alt="" width="752" height="562" loading="lazy">
         <div class="fear__head"><p class="fear__lbl">Страх 01</p><h3 class="fear__title">«Сумма вырастет по ходу лечения»</h3></div>
         <p class="fear__desc">Смета письменная, вы получаете её до начала лечения. Новые работы добавляем только с вашего согласия.</p>
       </div>
@@ -332,6 +335,7 @@
 
 <!-- 09 Форма -->
 <section class="formsec" id="form">
+  <img class="formsec__bg" src="assets/form-bg.jpg?v=4" alt="" width="1920" height="712" loading="lazy">
   <div class="formsec__body">
     <h2 class="h2 formsec__title">Расскажите, что беспокоит. Ответим, к какому врачу идти <br>и сколько примерно это стоит</h2>
     <form class="lead" action="#" novalidate>
@@ -345,15 +349,16 @@
     </div>
     <p class="formsec__note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных</p>
   </div>
-  <div class="formsec__photo"><img src="assets/form.jpg?v=2" alt="Врач держит модель челюсти" width="800" height="712" loading="lazy"></div>
 </section>
 
 <!-- 10 Детям -->
 <section class="sec" id="kids">
   <div class="wrap kids">
     <div class="kids__text">
-      <h2 class="h2">Лечим молочные зубы <br>и смотрим прикус</h2>
-      <p class="kids__desc">Лечение молочных зубов, детская гигиена и консультация ортодонта. Ортодонт подскажет, нужно ли исправлять прикус сейчас или можно подождать.</p>
+      <div class="kids__group">
+        <h2 class="h2">Лечим молочные зубы <br>и смотрим прикус</h2>
+        <p class="kids__desc">Лечение молочных зубов, детская гигиена и консультация ортодонта. Ортодонт подскажет, нужно ли исправлять прикус сейчас или можно подождать.</p>
+      </div>
       <a class="btn kids__btn" href="#form">Записать ребёнка</a>
     </div>
     <div class="promo">
@@ -371,7 +376,7 @@
   <div class="wrap faq">
     <div class="faq__head">
       <h2 class="h2">Частые вопросы перед лечением</h2>
-      <p class="faq__desc">Не нашли ответ? Напишите нам, ответим в мессенджере.</p>
+      <p class="faq__desc">Не нашли ответ? <br>Напишите нам, ответим в мессенджере.</p>
       <a class="btn faq__btn" href="#form">Задать вопрос</a>
     </div>
     <div class="faq__list">
@@ -445,7 +450,7 @@
   </div>
 </footer>
 
-<script src="script.js?v=3"></script>
-<script src="motion.js?v=3"></script>
+<script src="script.js?v=4"></script>
+<script src="motion.js?v=4"></script>
 </body>
 </html>
