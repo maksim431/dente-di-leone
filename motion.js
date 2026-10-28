@@ -100,6 +100,7 @@
   var groups = [
     // [селектор, задержка между элементами, мс]
     ['.sec__head .h2, .sec__head .sec__desc', 90],
+    ['.impl__h2, .impl__lead', 90],
     ['.intro__main > *', 90],
     ['.intro__facts li', 70],
     ['.bento > *', 110],
